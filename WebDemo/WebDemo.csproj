@@ -141,7 +141,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\api\ContactsController.cs" />
+    <Compile Include="Controllers\api\WebController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,6 +151,7 @@
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\ContactData.cs" />
     <Compile Include="Models\Name.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +222,10 @@
     <Content Include="Views\Home\KnockoutWebApi.cshtml" />
     <Content Include="Views\Home\Non-Observable.cshtml" />
     <Content Include="Views\Home\Observable.cshtml" />
+    <Content Include="Views\Reservation\Index.cshtml" />
+    <Content Include="Views\Shared\_SpaLayout.cshtml" />
+    <Content Include="Views\Reservation\Summary.cshtml" />
+    <Content Include="Views\Reservation\Editor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
