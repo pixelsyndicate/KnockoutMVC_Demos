@@ -1,0 +1,29 @@
+﻿@using PerpetuumSoft.Knockout
+@using WebDemo.Models
+@model WebDemo.Models.ContactData
+
+@{
+    ViewBag.Title = "Demo of Knockout MVC";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    KnockoutContext<ContactData> ko = Html.CreateKnockoutContext();
+}
+<script src="@Url.Content("~/Scripts/knockout-3.1.0.js")" type="text/javascript"></script>
+
+<h3>
+    Datastore for model is created with Html Helpers
+    <small>
+        <code>KnockoutContext&lt;ContactData&gt; ko = koHtml.CreateKnockoutContext();</code>
+    </small>
+</h3>
+
+<div>
+    <p>First name: @ko.Html.TextBox(m => m.FirstName)</p>
+    <p>Last name: @ko.Html.TextBox(m => m.LastName)</p>
+    <h2>Hello, @ko.Html.Span(m => m.FullName)!</h2>
+</div>
+
+<script src="@Url.Content("~/Scripts/knockout.mapping-latest.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/perpetuum.knockout.js")" type="text/javascript"></script>
+
+@ko.Apply(Model)
+

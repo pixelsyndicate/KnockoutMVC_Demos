@@ -1,0 +1,32 @@
+﻿@model WebDemo.Models.Contact
+
+@{
+    ViewBag.Title = "Demo of KnockoutWebApi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/knockoutMVC")
+
+<h3>The data display below pulls from WebApi</h3>
+<div class="col-sm-8 panel">
+    <div class="panel-heading">
+        <h3> Observable <small> dynamic changes display without postback</small></h3>
+    </div>
+    <div class="panel-body">
+        @Html.Partial("Observable")
+    </div>
+</div>
+
+
+<div class="col-sm-4  panel">
+    <div class="panel-heading">
+        <h3>Non-Observable <small> no dynamic changes </small></h3>
+    </div>
+    <div class="panel-body">
+        @Html.Partial("Non-Observable")
+    </div>
+</div>
+
+
+

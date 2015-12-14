@@ -1,0 +1,40 @@
+﻿@model dynamic
+
+<div class="bindable observable" data-url="/api/Contacts">
+    <div class="col-sm-4">
+        <label>
+            First:
+            <input type="text" class="form-control" data-bind="value: Name().FirstName" />
+        </label>
+        <label>
+            Last:
+            <input type="text" class="form-control" data-bind="value: Name().LastName" />
+        </label>
+        <label>
+            Street:
+            <input type="text" class="form-control" data-bind="value: Address().Street" />
+        </label>
+        <label>
+            City:
+            <input type="text" class="form-control" data-bind="value: Address().City" />
+        </label>
+        <label>
+            State:
+            <input type="text" class="form-control" data-bind="value: Address().State" />
+        </label>
+        <label>
+            Phone:
+            <input type="text" class="form-control" data-bind="value: Phone" />
+        </label>
+    </div>
+    <div class=" col-sm-8 well">
+        <h4 class="visible-xs">Type stuff above to see it here.</h4>
+        <h4 class="hidden-xs">Type stuff on the left to see it here.</h4>
+        <span type="text" data-bind="text: Name().FirstName"></span>
+        <span type="text" data-bind="text: Name().LastName"></span><br />
+        <span type="text" data-bind="text: Address().Street"></span>
+        <span type="text" data-bind="text: Address().City"></span>
+        <span type="text" data-bind="text: Address().State"></span><br />
+        <span  data-bind="text: Phone" type="phone"></span>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿@model dynamic
+
+<div class="bindable" data-url="/api/Contacts">
+    <label>
+        First:
+        <input type="text" class="form-control" data-bind="value: Name.FirstName" />
+    </label>
+    <label>
+        Last:
+        <input type="text" class="form-control" data-bind="value: Name.LastName" />
+    </label>
+    <label>
+        Street:
+        <input type="text" class="form-control" data-bind="value: Address.Street" />
+    </label>
+    <label>
+        City:
+        <input type="text" class="form-control" data-bind="value: Address.City" />
+    </label>
+    <label>
+        State:
+        <input type="text" class="form-control" data-bind="value: Address.State" />
+    </label>
+    <label>
+        Phone:
+        <input type="text" class="form-control" data-bind="value: Phone" />
+    </label>
+</div>
