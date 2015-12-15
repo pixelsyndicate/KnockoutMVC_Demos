@@ -1,7 +1,4 @@
-﻿@using WebDemo.Models
-@*@model IEnumerable<Reservation>*@
-
-@{
+﻿@{
     ViewBag.Title = "Reservations";
     Layout = "~/Views/Shared/_SpaLayout.cshtml";
 }
@@ -15,7 +12,9 @@
                 // id: ko.observable("0"),
                 name: ko.observable(""),
                 location: ko.observable("")
-            }
+            },
+            displaySummary: ko.observable(true), // should the summary be shown?
+            displayData: ko.observable(false)
         };
 
         // helper method to handle ajax calls to webapi
@@ -43,7 +42,7 @@
         function getAllItems() {
             sendAjaxRequest( // httpMethod, callback, url parm
                 "GET",
-                function(data) {
+                function (data) {
                     model.reservations.removeAll();
                     for (var i = 0; i < data.length; i++) {
                         model.reservations.push(data[i]);
@@ -54,7 +53,7 @@
         function removeItem(item) {
             sendAjaxRequest( // httpMethod, callback, url parm
                 "DELETE",
-                function() {
+                function () {
                     // shouldn't have to get all items from the server if the model is already kept in state on the browser
                     // getAllItems();
 
@@ -71,12 +70,28 @@
 
         }
 
+        // provide a way to show the data preview
+        function handleShowDataClick() {
+            model.displayData(true);
+        }
+        function handleHideDataClick() {
+            model.displayData(false);
+        }
+
+        function handleHideSummaryClick() {
+            model.displaySummary(false);
+        }
+        function handleShowSummaryClick() {
+            model.displaySummary(true);
+        }
+
         // click event handler for edit
         function handleEditorClick() {
-            sendAjaxPostRequest("POST", function(newItem) {
+            sendAjaxPostRequest("POST", function (newItem) {
                 model.editor.name("");
                 model.editor.location("");
                 model.reservations.push(newItem);
+                model.displaySummary(true);
             }, null, {
                 // get object to post values from the observable object.
                 ClientName: model.editor.name,
@@ -84,8 +99,13 @@
             });
         }
 
+        // click event for Create
+        function handleCreateClick() {
+            model.displaySummary(false);
+        }
+
         // ensure knockout has binding on the model from webapi
-        $(document).ready(function() {
+        $(document).ready(function () {
             getAllItems();
             ko.applyBindings(model);
         });
@@ -93,53 +113,61 @@
 }
 
 @section Body {
-    <div id="summary" class="section panel panel-primary">
-
+    <div id="summary" class="section panel panel-primary" data-bind="if: model.displaySummary">
+        <!-- if model.displaySummary, then show -->
         <div class="panel-heading">Reservation Summary</div>
         <div class="panel-body">
             <table class="table table-striped table-condensed">
                 <thead>
-                <tr>
-                    <td>ID</td><td>Name</td><td>Location</td>
-                </tr>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Location</td>
+                    </tr>
                 </thead>
                 <tbody data-bind="foreach: model.reservations">
-                <tr>
-                    <td data-bind="text: ReservationId"></td>
-                    <td data-bind="text: ClientName"></td>
-                    <td data-bind="text: Location"></td>
-                    <td>
-                        <button class="btn btn-xs btn-primary"
-                                data-bind="click: removeItem">
-                            Remove
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td data-bind="text: ReservationId"></td>
+                        <td data-bind="text: ClientName"></td>
+                        <td data-bind="text: Location"></td>
+                        <td>
+                            <button class="btn btn-xs btn-primary"
+                                    data-bind="click: removeItem">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+            <button class="btn btn-primary" data-bind="click: handleCreateClick">Create</button>
         </div>
 
         @* -- > this is teh MVC view ... turning it off since we are using knockout ... Html.Partial("Summary", Model)*@
     </div>
-    <div id="editor" class="section panel panel-primary">
-        <div class="panel-heading">
-            Create Reservation
+    <div id="editor" class="section panel panel-primary" data-bind="ifnot: model.displaySummary">
+    <!-- if model.displaySummary == false, then show -->
+    <div class="panel-heading">
+        Create Reservation
+    </div>
+    <div class="panel-body">
+        @*<input class="form-control" data-bind="value: model.editor.id" />*@
+        <div class="form-group">
+            <label>Client Name</label>
+            <input class="form-control" data-bind="value: model.editor.name" />
         </div>
-        <div class="panel-body">
-            @*<input class="form-control" data-bind="value: model.editor.id" />*@
-            <div class="form-group">
-                <label>Client Name</label>
-                <input class="form-control" data-bind="value: model.editor.name"/>
-            </div>
-            <div class="form-group">
-                <label>Location</label>
-                <input class="form-control" data-bind="value: model.editor.location"/>
-            </div>
-            <button class="btn btn-primary" data-bind="click: handleEditorClick">Save</button>
+        <div class="form-group">
+            <label>Location</label>
+            <input class="form-control" data-bind="value: model.editor.location" />
         </div>
+        <button class="btn btn-primary" data-bind="click: handleEditorClick">Save</button>
+        <button class="btn btn-primary" data-bind="click: handleShowSummaryClick">Cancel</button>
+    </div>
 
+
+
+    @*-- > this is teh MVC view ... turning it off since we are using knockout .... @Html.Partial("Editor", new Reservation())*@
+</div>
+    <div data-bind="if: model.displayData">
         <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
-
-        @*-- > this is teh MVC view ... turning it off since we are using knockout .... @Html.Partial("Editor", new Reservation())*@
     </div>
 }

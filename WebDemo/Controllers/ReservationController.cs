@@ -14,7 +14,8 @@ namespace WebDemo.Controllers
         // GET: Reservation
         public ActionResult Index()
         {
-            return View(_repo.GetAll());
+          // no longer use this, now using ajax to api/webcontroller ...   return View(_repo.GetAll());
+            return View();
         }
 
         // GET: Reservation/Details/5
