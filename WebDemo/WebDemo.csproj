@@ -151,6 +151,7 @@
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\ContactData.cs" />
     <Compile Include="Models\Name.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

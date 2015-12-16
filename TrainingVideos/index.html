@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>TypeScript HTML App</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="Scripts/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="Scripts/bootstrap.js" type="text/javascript"></script>
+    <script src="app.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <div id="content container">
+        <!-- title -->
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>List Products</h2>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <table id="productTable" class="table table-condensed table-bordered table-striped">
+
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>Product Name</th>
+                        <th>Introduction Date</th>
+                        <th>URL</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="panel panel-default" id="panelCreate">
+                <div class="panel-heading">Product Information</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" value="" class="form-control" id="productname" />
+                    </div>
+                    <div class="form-group">
+                        <label>Introduction Date</label>
+                        <input type="text" value="" class="form-control" id="introdate" />
+                    </div>
+                    <div class="form-group">
+                        <label>URL</label>
+                        <input type="text" value="" class="form-control" id="url" />
+                    </div>
+
+                    <button type='button' id='updateButton' class='btn btn-primary' onclick='productUpdate()'>Add</button>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="footer"></div>
+
+
+    <script>
+        // global variable of product being edited
+        var _row = null;
+
+
+
+
+        function productsAdd() {
+            if ($("#productTable tbody").length == 0) {
+                $("#productTable").append("<tbody></tbody>");
+            }
+            $("#productTable tbody").append(
+                "<tr>" +
+                "<td>" +
+                "<button type='button' " +
+                "onclick='productDisplay(this)'" +
+                "class='btn btn-xs btn-info'>" +
+                "<span class='glyphicon glyphicon-edit'></span>" +
+                "</button>" +
+                "<td>Extending bootstrap with css</td>" +
+                "<td>6/11/2015</td>" +
+                "<td>http://bit.ly/1SNzc0i</td>" +
+                 "<td>" +
+                "<button type='button' " +
+                "onclick='productDelete(this)'" +
+                "class='btn btn-xs btn-danger'>" +
+                "<span class='glyphicon glyphicon-remove'></span>" +
+                "</button>" +
+                "</td>" +
+                "</tr>");
+            $("#productTable tbody").append(
+                "<tr>" +
+                "<td>" +
+                "<button type='button' " +
+                "onclick='productDisplay(this)'" +
+                "class='btn btn-xs btn-info'>" +
+                "<span class='glyphicon glyphicon-edit'></span>" +
+                "</button>" +
+                "<td>build your own bootstrap business application template in mvc</td>" +
+                "<td>6/11/2015</td>" +
+                "<td>http://bitly/1I8ZqZg</td>" +
+                 "<td>" +
+                "<button type='button' " +
+                "onclick='productDelete(this)'" +
+                "class='btn btn-xs btn-danger'>" +
+                "<span class='glyphicon glyphicon-remove'></span>" +
+                "</button>" +
+                "</td>" +
+                "</tr>");
+        }
+
+        function productUpdate() {
+
+            if ($("#productname").val() != null && $("#productname").val() != '') {
+                // add product to table
+
+                productAddToTable();
+
+                // clear form fields
+                formClear();
+
+                // focus to product name field
+                $("#productname").focus();
+            }
+        }
+
+        function formClear() {
+            $("#productname").val("");
+            $("#introdate").val("");
+            $("#url").val("");
+        }
+
+        function productAddToTable() {
+            // first check to see that tbody tag exist
+            if ($("#productTable tbody").length == 0) {
+                $("#productTable").append("<tbody></tbody>");
+            }
+
+            // append product to the table
+            $("#productTable tbody").append(
+                "<tr>" +
+                "<td>" +
+                "<button type='button' " +
+                "onclick='productDisplay(this)'" +
+                "class='btn btn-xs btn-info'>" +
+                "<span class='glyphicon glyphicon-edit'></span>" +
+                "</button>" +
+                "</td>" +
+                "<td>" + $("#productname").val() + "</td>" +
+                "<td>" + $("#introdate").val() + "</td>" +
+                "<td>" + $("#url").val() + "</td>" +
+                "<td>" +
+                "<button type='button' " +
+                "onclick='productDelete(this)'" +
+                "class='btn btn-xs btn-danger'>" +
+                "<span class='glyphicon glyphicon-remove'></span>" +
+                "</button>" +
+                "</td>" +
+                "</tr>");
+        };
+
+        function productDelete(ctrl) {
+            $(ctrl).parents("tr").remove();
+        }
+
+        function productDisplay(ctrl) {
+            _row = $("ctrl").parents("tr");
+            var cols = _row.children("td");
+
+            $("#productname").val($(col[1]).Text());
+            $("#introdate").val($(col[2]).Text());
+            $("#url").val($(col[3]).Text());
+
+            // change the updatebutton text
+            $("#updateButton").Text("Update");
+        }
+
+        function productUpdate() {
+            if ($("#updateButton").text() == "Update") {
+                productUpdateInTable();
+            } else {
+                productAddToTable();
+            }
+
+            // clear form fields
+            formClear();
+
+            // focus to product name field
+            $("#productname").focus();
+        }
+
+        function productBuiltTableRow() {
+            var ret = "";
+
+            return ret;
+        }
+
+        function productUpdateInTable() {
+            // ad changed product to table
+
+            // remove old product row
+
+            // clear the form
+            formClear();
+
+            // change the update button text
+            $("#updatebutton").text("Add");
+        }
+
+        $(document).ready(function () { productsAdd(); });
+    </script>
+</body>
+</html>
